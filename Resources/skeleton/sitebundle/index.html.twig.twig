@@ -6,6 +6,10 @@
 
 {% block title %}{{ cms_html_title() }}{% endblock %}
 
+{% block meta %}
+    {{ parent() }}
+{% endblock meta %}
+
 {% block styles %}
     {{ parent() }}
     <style media="all" type="text/css">
