@@ -23,7 +23,7 @@ class SiteBundleGenerator extends Generator
                 throw new \RuntimeException(sprintf('Unable to generate the module as the target directory "%s" exists but is a file.', realpath($dir)));
             }
             $files = scandir($dir);
-            if ($files != array('.', '..')) {
+            if ($files != ['.', '..']) {
                 throw new \RuntimeException(sprintf('Unable to generate the module as the target directory "%s" is not empty.', realpath($dir)));
             }
             if (!is_writable($dir)) {
@@ -32,17 +32,18 @@ class SiteBundleGenerator extends Generator
         }
 
         $basename = substr($bundle, 0, -6);
-        $parameters = array(
+        $parameters = [
             'namespace' => $namespace,
             'bundle'    => $bundle,
             'format'    => $format,
             'bundle_basename' => $basename,
             'bundle_basename_camelize' => Container::camelize($basename),
             'extension_alias' => Container::underscore($basename),
-        );
+        ];
 
         $this->renderFile('sitebundle/Bundle.php.twig', $dir.'/'.$bundle.'.php', $parameters);
         $this->renderFile('sitebundle/Controller.php.twig', $dir.'/Controller/DefaultController.php', $parameters);
+        $this->renderFile('sitebundle/User.php.twig', $dir.'/Entity/User.php', $parameters);
         $this->renderFile('sitebundle/screen.css.twig', $dir.'/Resources/public/css/screen.css', $parameters);
         $this->renderFile('sitebundle/index.html.twig.twig', $dir.'/Resources/views/index.html.twig', $parameters);
         $this->renderFile('sitebundle/welcome.html.twig.twig', $dir.'/Resources/views/Default/welcome.html.twig', $parameters);
