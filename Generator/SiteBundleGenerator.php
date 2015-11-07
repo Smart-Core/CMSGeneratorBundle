@@ -45,7 +45,7 @@ class SiteBundleGenerator extends Generator
         $this->renderFile('sitebundle/Controller.php.twig', $dir.'/Controller/DefaultController.php', $parameters);
         $this->renderFile('sitebundle/User.php.twig', $dir.'/Entity/User.php', $parameters);
         $this->renderFile('sitebundle/screen.css.twig', $dir.'/Resources/public/css/screen.css', $parameters);
-        $this->renderFile('sitebundle/index.html.twig.twig', $dir.'/Resources/views/index.html.twig', $parameters);
+        $this->renderFile('sitebundle/default.html.twig.twig', $dir.'/Resources/views/default.html.twig', $parameters);
         $this->renderFile('sitebundle/welcome.html.twig.twig', $dir.'/Resources/views/Default/welcome.html.twig', $parameters);
 
         $this->renderFile('sitebundle/modules.ini.twig', $dir.'/Resources/config/modules.ini', $parameters);
