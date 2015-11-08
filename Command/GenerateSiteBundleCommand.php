@@ -44,6 +44,8 @@ class GenerateSiteBundleCommand extends GeneratorCommand
             $name = $questionHelper->ask($input, $output, $question);
         }
 
+        $name = ucfirst($name);
+
         $dir = dirname($this->getContainer()->getParameter('kernel.root_dir')).'/src';
         $format = 'yml';
         $structure = 'no';
