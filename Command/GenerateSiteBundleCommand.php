@@ -34,10 +34,15 @@ class GenerateSiteBundleCommand extends GeneratorCommand
     {
         $questionHelper = $this->getQuestionHelper();
 
-        $name = 'My';
-        $question = new Question($questionHelper->getQuestion('Site name.', $name), $name);
+        $name = $input->getOption('name');
 
-        $name = $questionHelper->ask($input, $output, $question);
+        if (empty($name)) {
+            $name = 'My';
+
+            $question = new Question($questionHelper->getQuestion('Site name.', $name), $name);
+
+            $name = $questionHelper->ask($input, $output, $question);
+        }
 
         $dir = dirname($this->getContainer()->getParameter('kernel.root_dir')).'/src';
         $format = 'yml';
@@ -61,7 +66,16 @@ class GenerateSiteBundleCommand extends GeneratorCommand
         // check that the namespace is already autoloaded
         $runner($this->checkAutoloader($output, $namespace, $bundle, $dir));
 
-        $questionHelper->writeGeneratorSummary($output, $errors);
+        if (!$errors) {
+            $questionHelper->writeSection($output, "'$namespace' succesfuly created!");
+        } else {
+            $questionHelper->writeSection($output, [
+                'The command was not able to configure everything automatically.',
+                'You must do the following changes manually.',
+            ], 'error');
+
+            $output->writeln($errors);
+        }
     }
 
     protected function checkAutoloader(OutputInterface $output, $namespace, $bundle, $dir)
