@@ -2,7 +2,7 @@
 
 namespace SmartCore\Bundle\CMSGeneratorBundle\Composer;
 
-use Composer\Script\CommandEvent;
+use Composer\Script\Event;
 use Sensio\Bundle\DistributionBundle\Composer\ScriptHandler as SymfonyScriptHandler;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
@@ -10,9 +10,9 @@ use Symfony\Component\Process\Process;
 class ScriptHandler extends SymfonyScriptHandler
 {
     /**
-     * @param $event CommandEvent A instance
+     * @param $event Event A instance
      */
-    public static function install(CommandEvent $event)
+    public static function install(Event $event)
     {
         $options = parent::getOptions($event);
         $appDir = $options['symfony-app-dir'];
