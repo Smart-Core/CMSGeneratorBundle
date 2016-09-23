@@ -1,11 +1,9 @@
 {
     "name": "smart-core/cms-generator-bundle",
+    "description" : "Modules and Sites code generator for SmartCore CMS",
     "type": "symfony-bundle",
     "homepage": "http://smart-core.org",
     "license": "MIT",
-    "require": {
-        "php": ">=5.4.1"
-    },                
     "autoload": {
         "psr-4": {
             "SmartCore\\Bundle\\CMSGeneratorBundle\\": ""
