@@ -16,6 +16,7 @@ class ScriptHandler extends SymfonyScriptHandler
     {
         $options = parent::getOptions($event);
         $appDir = $options['symfony-app-dir'];
+        $binDir = $options['symfony-bin-dir'];
 
         if (null === $appDir) {
             return;
@@ -49,8 +50,8 @@ class ScriptHandler extends SymfonyScriptHandler
             $process = new Process('cp vendor/smart-core/cms-generator-bundle/Resources/skeleton/User.php app/Entity/User.php');
             $process->mustRun();
 
-            static::executeCommand($event, $appDir, 'doctrine:schema:drop --force', $options['process-timeout']);
-            static::executeCommand($event, $appDir, 'cms:generate:sitebundle --name='.$sitename, $options['process-timeout']);
+            static::executeCommand($event, $binDir, 'doctrine:schema:drop --force', $options['process-timeout']);
+            static::executeCommand($event, $binDir, 'cms:generate:sitebundle --name='.$sitename, $options['process-timeout']);
 
             unlink($appDir.'/Entity/User.php');
 
@@ -63,11 +64,11 @@ class ScriptHandler extends SymfonyScriptHandler
                 }
             });
 
-            static::executeCommand($event, $appDir, 'doctrine:schema:update --force --complete', $options['process-timeout']);
+            static::executeCommand($event, $binDir, 'doctrine:schema:update --force --complete', $options['process-timeout']);
 
             $event->getIO()->write('<comment>Create super admin user:</comment>');
 
-            static::executeCommand($event, $appDir, "fos:user:create --super-admin $username $email $password", $options['process-timeout']);
+            static::executeCommand($event, $binDir, "fos:user:create --super-admin $username $email $password", $options['process-timeout']);
         }
     }
 }
