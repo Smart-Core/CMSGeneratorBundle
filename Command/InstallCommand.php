@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
@@ -38,7 +39,8 @@ class InstallCommand extends ContainerAwareCommand
         $finder = (new Finder())->directories()->depth('== 0')->name('*SiteBundle')->name('SiteBundle')->in($appDir.'/../src');
 
         if ($finder->count() == 0) {
-            $dialog = $this->getQuestionHelper();
+            $dialog     = $this->getQuestionHelper();
+            $filesystem = new Filesystem();
 
             $output->writeln('<error>Installing Smart Core CMS. This prosess purge all database tables.</error>');
             $confirm = $dialog->ask($input, $output, new Question('<comment>Are you shure?</comment> [y,N]: ', 'n'));
@@ -78,6 +80,10 @@ class InstallCommand extends ContainerAwareCommand
             $output->writeln('<comment>Create super admin user:</comment>');
 
             static::executeCommand($output, $binDir, "fos:user:create --super-admin $username $email $password");
+
+            $filesystem->remove('app/config/install.yml');
+            $filesystem->remove('app/Entity/.keep');
+            $filesystem->remove('app/Entity');
         }
 
         return null;
