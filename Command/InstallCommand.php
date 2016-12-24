@@ -73,7 +73,7 @@ class InstallCommand extends ContainerAwareCommand
                 }
             });
 
-            static::executeCommand($output, $binDir, 'doctrine:schema:update --force --complete');
+            static::executeCommand($output, $binDir, 'doctrine:schema:update --force --complete --env=prod');
 
             $output->writeln('<comment>Create super admin user:</comment>');
 
