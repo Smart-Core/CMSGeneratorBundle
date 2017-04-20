@@ -6,6 +6,6 @@ parameters:
 services:
 {% block services %}
 #    {{ extension_alias }}.example:
-#        class: %{{ extension_alias }}.example.class%
+#        class: "%{{ extension_alias }}.example.class%"
 #        arguments: [ '@service_id', plain_value, "%parameter%"]
 {% endblock services %}
