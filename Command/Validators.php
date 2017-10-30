@@ -62,7 +62,7 @@ class Validators
         } catch (\InvalidArgumentException $e) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'The controller name must contain a : ("%s" given, expecting something like AcmeBlogModule:Post)',
+                    'The controller name must contain a : ("%s" given, expecting something like AcmeBlogModuleBundle:Post)',
                     $controller
                 )
             );
@@ -91,7 +91,7 @@ class Validators
     public static function validateEntityName($entity)
     {
         if (false === strpos($entity, ':')) {
-            throw new \InvalidArgumentException(sprintf('The entity name must contain a : ("%s" given, expecting something like AcmeBlogModule:Blog/Post)', $entity));
+            throw new \InvalidArgumentException(sprintf('The entity name must contain a : ("%s" given, expecting something like AcmeBlogModuleBundle:Blog/Post)', $entity));
         }
 
         return $entity;
